@@ -4,19 +4,22 @@ on:
     - cron: '0 0 * * *'
   workflow_dispatch:
 
-# 아래 permissions 섹션이 매우 중요합니다! (권한 부여)
 permissions:
   contents: write
+
+# 이 부분이 Node.js 24 환경을 강제로 사용하게 하여 경고를 제거합니다.
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4 # v3에서 v4로 업데이트
+      - uses: actions/checkout@v4
       - name: Python 설치
-        uses: actions/setup-python@v5 # v4에서 v5로 업데이트
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.11' # 안정적인 최신 버전 사용
+          python-version: '3.11'
 
       - name: 라이브러리 설치
         run: pip install yfinance
