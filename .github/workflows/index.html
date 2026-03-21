@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>우리 모임 주식 현황</title>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: sans-serif; text-align: center; background: #f4f4f4; }
+        .card { background: white; padding: 20px; margin: 10px auto; width: 300px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .price { font-size: 24px; color: #007bff; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>📈 실시간 시세 (매일 자동 업데이트)</h1>
+    <div id="display">로딩 중...</div>
+
+    <script>
+        fetch('data.json')
+            .then(res => res.json())
+            .then(data => {
+                let output = '';
+                for(let item in data) {
+                    output += `<div class="card">
+                        <h3>${item}</h3>
+                        <p class="price">$${data[item].price}</p>
+                        <small>기준: ${data[item].updated}</small>
+                    </div>`;
+                }
+                document.getElementById('display').innerHTML = output;
+            });
+    </script>
+</body>
+</html>
